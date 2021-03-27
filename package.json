@@ -1,11 +1,15 @@
 {
-  "name": "randommeals",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "test": "start"
-  },
-  "author": "",
-  "license": "ISC"
+	"name": "randommeals",
+	"version": "1.0.0",
+	"description": "",
+	"main": "index.js",
+	"scripts": {
+		"start": "node index.js",
+		"s": "node index.js"
+	},
+	"author": "",
+	"license": "ISC",
+	"dependencies": {
+		"express": "^4.17.1"
+	}
 }
