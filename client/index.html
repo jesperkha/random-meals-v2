@@ -34,10 +34,19 @@
 		<br /><br />
 
 		<button onclick="requestRecipe();">Send request</button>
+
+		<br /><br />
+
+		<pre id="content"></pre>
 	</body>
 
 	<script defer>
 		window.onload = async () => {
+			if (localStorage.getItem("view") == "recipe") {
+				window.location = "./recipe.html";
+			}
+			localStorage.setItem("view", "select");
+
 			const res = await fetch("./tags.json");
 			const json = await res.json();
 

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Recipe page</title>
+	</head>
+	<body>
+		<h1 id="r_name"></h1>
+
+		<br /><br />
+
+		<img id="r_image" src="" alt="" />
+		<p id="r_time"></p>
+		<p id="r_servings"></p>
+
+		<br /><br />
+
+		<p>Ingredients:</p>
+		<div id="r_ingredients"></div>
+
+		<br /><br />
+
+		<p>Instructions:</p>
+		<div id="r_instructions"></div>
+
+		<br /><br />
+
+		<p>Nutrition:</p>
+		<div id="r_nutrition"></div>
+
+		<br /><br />
+
+		<button onclick="goBack();">go back</button>
+	</body>
+
+	<script>
+		window.onload = () => {
+			localStorage.setItem("view", "recipe");
+
+			const data = JSON.parse(localStorage.getItem("data"));
+
+			document.getElementById("r_name").textContent = data.name;
+			document.getElementById("r_image").src = data.img;
+			document.getElementById("r_time").textContent = data.time;
+			document.getElementById("r_servings").textContent = data.servings;
+
+			for (let i of data.ingredients) {
+				document.getElementById("r_ingredients").innerHTML += i + "<br>";
+			}
+
+			for (let i of data.instructions) {
+				document.getElementById("r_instructions").innerHTML += i + "<br><br>";
+			}
+
+			for (let n in data.nutrition) {
+				document.getElementById("r_nutrition").innerHTML += `${n}: ${data.nutrition[n]}<br>`;
+			}
+		};
+
+		function goBack() {
+			localStorage.setItem("view", "select");
+			window.location = "./index.html";
+		}
+	</script>
+</html>
