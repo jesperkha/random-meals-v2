@@ -1,0 +1,48 @@
+{
+	"ethnicities": [
+		"african",
+		"chinese",
+		"french",
+		"german",
+		"italian",
+		"middle_eastern",
+		"american",
+		"british",
+		"greek",
+		"mexican",
+		"korean",
+		"vietnamese",
+		"caribbean",
+		"indian",
+		"latin_american",
+		"thai",
+		"japanese",
+		"brazilian"
+	],
+	"meal": [
+		"brunch",
+		"drinks",
+		"comfort_food",
+		"breakfast",
+		"lunch",
+		"appetizers",
+		"sides",
+		"snacks",
+		"dinner",
+		"desserts"
+	],
+	"options": [
+		"vegan",
+		"vegetarian",
+		"pescatarian",
+		"dairy_free",
+		"gluten_free",
+		"low_carb",
+		"healthy",
+		"easy",
+		"under_30_minutes",
+		"5_ingredients_or_less",
+		"one_pot_or_pan",
+		"kid_friendly"
+	]
+}

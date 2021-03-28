@@ -5,9 +5,61 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<link rel="stylesheet" href="./css/main.css" />
+		<script src="./requests.js"></script>
 		<title>RandomMeals</title>
 	</head>
 	<body>
-		<h1>Hello there</h1>
+		<h1>Get random meal</h1>
+
+		<!-- Enthicity select -->
+		<p>ethnicity</p>
+		<select name="" id="select-ethnicity">
+			<option value="">Any</option>
+		</select>
+
+		<br /><br />
+
+		<!-- Meal select -->
+		<p>meal</p>
+		<select name="" id="select-meal">
+			<option value="">Any</option>
+		</select>
+
+		<br /><br />
+
+		<!-- Extra options -->
+		<p>options</p>
+		<div id="options"></div>
+
+		<br /><br />
+
+		<button onclick="requestRecipe();">Send request</button>
 	</body>
+
+	<script defer>
+		window.onload = async () => {
+			const res = await fetch("./tags.json");
+			const json = await res.json();
+
+			json.ethnicities.forEach((e) => {
+				document.getElementById("select-ethnicity").innerHTML += `<option value="${e}">${e.replaceAll(
+					"_",
+					" "
+				)}</option>`;
+			});
+
+			json.meal.forEach((e) => {
+				document.getElementById("select-meal").innerHTML += `<option value="${e}">${e.replaceAll("_", " ")}</option>`;
+			});
+
+			json.options.forEach((e) => {
+				const index = json.options.indexOf(e);
+				const checkbox = `<input type="checkbox" value="${e}" id="options_${index}" />`;
+				const label = `<label for="options_${index}">${e.replaceAll("_", " ")}</label>`;
+				document.getElementById("options").innerHTML += checkbox;
+				document.getElementById("options").innerHTML += label;
+				document.getElementById("options").innerHTML += "<br>";
+			});
+		};
+	</script>
 </html>
