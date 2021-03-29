@@ -6,7 +6,7 @@ function getTags() {
 		if (select.value != "") tags.push(select.value);
 	};
 
-	pushFromSelect("select-ethnicity");
+	pushFromSelect("select-region");
 	pushFromSelect("select-meal");
 
 	document.getElementById("options").childNodes.forEach((e) => {

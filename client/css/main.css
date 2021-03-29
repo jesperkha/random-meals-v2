@@ -1,3 +1,7 @@
 * {
 	text-transform: capitalize;
 }
+
+img {
+	width: 50%;
+}
