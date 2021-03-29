@@ -4,7 +4,7 @@ const app = Express();
 app.use(Express.json());
 app.use(Express.static("./client"));
 
-const fetchRecipeFromApi = require("./server/get-api-data");
+const fetchRecipeFromApi = require("./get-api-data");
 
 app.listen(3000, async () => {
 	console.log("Listening at 3000 \n");
