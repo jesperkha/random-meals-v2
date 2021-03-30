@@ -1,20 +1,56 @@
-function getTags() {
-	let tags = [];
+function dropdown(id) {
+	const toggle = document.getElementById(id);
+	const content = document.getElementById(`${id}-content`);
 
-	const pushFromSelect = (id) => {
-		const select = document.getElementById(id);
-		if (select.value != "") tags.push(select.value);
-	};
-
-	pushFromSelect("select-region");
-	pushFromSelect("select-meal");
-
-	document.getElementById("options").childNodes.forEach((e) => {
-		if (e?.localName == "input" && e.checked) tags.push(e.value);
-	});
-
-	return tags;
+	if (content.classList.contains("dropdown-content-down")) {
+		content.classList.remove("dropdown-content-down");
+		toggle.classList.remove("dropdown-top-down");
+	} else {
+		content.classList.add("dropdown-content-down");
+		toggle.classList.add("dropdown-top-down");
+	}
 }
+
+let selectedMeal = "";
+let selectedRegion = "";
+
+function toggleSelect(id) {
+	const clicked = document.getElementById(id);
+	const parent = document.getElementById(clicked.parentElement.id);
+
+	for (let elem of parent.childNodes) {
+		elem?.classList?.remove("select-selected");
+	}
+	clicked.classList.add("select-selected");
+
+	if (parent.id == "meal-type-content") {
+		if (clicked.id == "any") selectedMeal = "";
+		else selectedMeal = clicked.id;
+	}
+
+	if (parent.id == "region-content") {
+		if (clicked.id == "Rany") selectedRegion = "";
+		else selectedRegion = clicked.id;
+	}
+}
+
+let selectedOptions = [];
+
+function toggleSelectMultiple(id) {
+	const clicked = document.getElementById(id);
+
+	if (clicked.classList.contains("select-selected")) {
+		clicked.classList.remove("select-selected");
+		selectedOptions.splice(selectedOptions.indexOf(clicked.id), 1);
+	} else {
+		clicked.classList.add("select-selected");
+		selectedOptions.push(clicked.id);
+	}
+}
+
+// -------------------------------------------------------------------
+// -------------------------------------------------------------------
+// -------------------------------------------------------------------
 
 function getValues(json) {
 	let data = {};
@@ -52,17 +88,43 @@ function getValues(json) {
 }
 
 async function requestRecipe() {
+	document.getElementById("loading").style.display = "flex";
+	document.getElementById("main-content").style.display = "none";
+
+	let tags = [];
+	if (selectedRegion) tags.push(selectedRegion);
+	if (selectedMeal) tags.push(selectedMeal);
+	tags = tags.concat(selectedOptions);
+	console.log(tags);
+
 	const options = {
 		method: "POST",
 		headers: {
 			"Content-Type": "application/json",
 		},
-		body: JSON.stringify(getTags()),
+		body: JSON.stringify(tags),
 	};
 
-	const res = await fetch("/getRecipe", options);
-	const json = await res.json();
+	try {
+		const res = await fetch("/getRecipe", options);
+		const json = await res.json();
 
-	localStorage.setItem("data", JSON.stringify(getValues(json.body)));
-	window.location = "./recipe.html";
+		if (json.status == "success") {
+			localStorage.setItem("data", JSON.stringify(getValues(json.body)));
+			window.location = "./recipe.html";
+		} else {
+			// Show too many options message
+		}
+	} catch {
+		const err = document.getElementById("error");
+		err.style.display = "flex";
+		err.classList.add("show-error");
+		setTimeout(() => {
+			err.classList.remove("show-error");
+			setTimeout(() => (err.style.display = "none"), 1000);
+		}, 2000);
+
+		document.getElementById("loading").style.display = "none";
+		document.getElementById("main-content").style.display = "flex";
+	}
 }

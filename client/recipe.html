@@ -5,6 +5,7 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<link rel="stylesheet" href="./css/main.css" />
+		<link rel="stylesheet" href="./css/recipe.css" />
 		<title>Recipe page</title>
 	</head>
 	<body>
@@ -51,8 +52,7 @@
 				document.getElementById("r_instructions").innerHTML += i + "<br><br>";
 			}
 
-			document.getElementById("r_cal").textContent =
-				data.nutrition.calories + " calories";
+			document.getElementById("r_cal").textContent = data.nutrition.calories + " calories";
 		};
 
 		function goBack() {
