@@ -6,7 +6,8 @@ app.use(Express.static("./client"));
 
 const fetchRecipeFromApi = require("./server/get-api-data");
 
-app.listen(3000, async () => {
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, async () => {
 	console.log("Listening at 3000 \n");
 
 	// Send recipe data back as object.body
@@ -17,7 +18,8 @@ app.listen(3000, async () => {
 			const recipe = await fetchRecipeFromApi(req.body);
 			const randomIndex = Math.floor(Math.random() * recipe.results.length);
 
-			if (recipe.results.length != 0) res.json({ status: "success", body: recipe.results[randomIndex] });
+			if (recipe.results.length != 0)
+				res.json({ status: "success", body: recipe.results[randomIndex] });
 			else res.json({ status: "blank" });
 
 			console.log("Success \n");
