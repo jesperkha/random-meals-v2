@@ -5,37 +5,81 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title>Recipe page</title>
+
+		<!-- SRC -->
+		<link rel="preconnect" href="https://fonts.gstatic.com" />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Rubik:wght@500&display=swap"
+			rel="stylesheet"
+		/>
+		<link rel="preconnect" href="https://fonts.gstatic.com" />
+		<link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet" />
+
+		<link rel="stylesheet" href="./css/main.css" />
+		<link rel="stylesheet" href="./css/recipe.css" />
+		<script src="./js/toggle-recipe.js"></script>
 	</head>
 	<body>
-		<h1 id="r_name"></h1>
+		<main>
+			<!-- 
+			BANNER
+		 	-->
+			<section class="banner shadow">
+				<div class="navbar">
+					<p>RandomMeals</p>
+					<div class="burger">
+						<div></div>
+						<div></div>
+						<div></div>
+					</div>
+				</div>
+			</section>
 
-		<br /><br />
+			<!-- 
+			IMAGE
+		 	-->
+			<div class="image shadow">
+				<img id="r_image" src="" alt="" />
+			</div>
 
-		<img id="r_image" src="" alt="" />
-		<p id="r_time"></p>
-		<p id="r_servings"></p>
+			<p id="r_name"></p>
 
-		<br /><br />
+			<!-- 
+				SELECT
+			 -->
+			<div class="recipe shadow">
+				<div class="select">
+					<p onclick="toggleRecipeSelect(this.id);" id="ingredients" class="selected">
+						Ingredients
+					</p>
+					<p onclick="toggleRecipeSelect(this.id);" id="instructions">Instructions</p>
+					<p onclick="toggleRecipeSelect(this.id);" id="details">Details</p>
+				</div>
+				<div id="r_ingredients" class="recipe-content selected-content"></div>
+				<div id="r_instructions" class="recipe-content"></div>
+				<div class="recipe-content" id="r_details">
+					<p id="r_servings"></p>
+					<p id="r_cal"></p>
+					<p id="r_time"></p>
+				</div>
+				<button id="go-back" onclick="goBack();">Go back</button>
+			</div>
 
-		<p>Ingredients:</p>
-		<div id="r_ingredients"></div>
-
-		<br /><br />
-
-		<p>Instructions:</p>
-		<div id="r_instructions"></div>
-
-		<br /><br />
-
-		<p>Nutrition:</p>
-		<div id="r_nutrition"></div>
-
-		<br /><br />
-
-		<button onclick="goBack();">go back</button>
+			<!-- 
+				FOOTER
+			 -->
+			<div class="footer">
+				<p>Help & Support</p>
+				<p>F.A.Q</p>
+				<p>Contact</p>
+			</div>
+		</main>
 	</body>
 
-	<script>
+	<script defer>
+		/*
+			r_time, r_image, r_name, r_servings, r_ingredients, r_instructions, r_cal, goBack()
+		*/
 		window.onload = () => {
 			localStorage.setItem("view", "recipe");
 
@@ -43,8 +87,10 @@
 
 			document.getElementById("r_name").textContent = data.name;
 			document.getElementById("r_image").src = data.img;
-			document.getElementById("r_time").textContent = data.time;
 			document.getElementById("r_servings").textContent = data.servings;
+			if (data.time) document.getElementById("r_time").textContent = data.time;
+			if (data.nutrition.calories)
+				document.getElementById("r_cal").textContent = data.nutrition.calories + " calories";
 
 			for (let i of data.ingredients) {
 				document.getElementById("r_ingredients").innerHTML += i + "<br>";
@@ -52,10 +98,6 @@
 
 			for (let i of data.instructions) {
 				document.getElementById("r_instructions").innerHTML += i + "<br><br>";
-			}
-
-			for (let n in data.nutrition) {
-				document.getElementById("r_nutrition").innerHTML += `${n}: ${data.nutrition[n]}<br>`;
 			}
 		};
 
