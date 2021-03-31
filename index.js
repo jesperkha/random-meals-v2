@@ -8,11 +8,11 @@ const fetchRecipeFromApi = require("./server/get-api-data");
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, async () => {
-	console.log("Listening at 3000 \n");
+	console.log("- App is live - \n");
 
 	// Send recipe data back as object.body
 	app.post("/getRecipe", async (req, res) => {
-		console.log("Got request:", req.body);
+		// console.log("Got request:", req.body);
 
 		try {
 			const recipe = await fetchRecipeFromApi(req.body);
@@ -22,10 +22,10 @@ app.listen(PORT, async () => {
 				res.json({ status: "success", body: recipe.results[randomIndex] });
 			else res.json({ status: "blank" });
 
-			console.log("Success \n");
+			// console.log("Success \n");
 		} catch {
 			res.json({ status: "error" });
-			console.log("Error \n");
+			// console.log("Error \n");
 		}
 	});
 });

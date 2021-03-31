@@ -68,7 +68,7 @@
 
 .image {
 	width: var(--width);
-	height: 20vh;
+	height: 25vh;
 	overflow: hidden;
 	display: flex;
 	justify-content: center;
@@ -128,7 +128,6 @@
 	font-size: var(--font-text);
 	font-family: "Poppins", sans-serif;
 	margin-top: var(--margin-big);
-	margin-bottom: var(--margin-big);
 	line-height: 200%;
 
 	display: none;
@@ -151,6 +150,7 @@
 	padding: 15px;
 	width: 50%;
 	border-radius: 5px;
+	margin-top: var(--margin-big);
 }
 
 .footer {
@@ -159,7 +159,7 @@
 	justify-content: space-between;
 	align-items: center;
 	font-size: var(--font-text);
-	color: #ffc54a;
+	color: black;
 	margin-top: var(--margin-big);
 	padding: 20px;
 }
